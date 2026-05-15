@@ -1,0 +1,21 @@
+{
+  "name": "duel-agents-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Duel Agents integration monorepo — CLI, SDK, and IDE plugins",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @duel-agents/core && npm run build -w @duel-agents/sdk -w @duel-agents/install",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2aronS/Duel-Agents.git"
+  }
+}

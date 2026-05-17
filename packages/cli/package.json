@@ -1,0 +1,39 @@
+{
+  "name": "@duel-agents/install",
+  "version": "0.1.0",
+  "description": "Install Duel Agents into Claude Code, Cursor, Codex, and OpenClaw",
+  "type": "module",
+  "bin": {
+    "duel-agents-install": "./dist/cli.js",
+    "duel-agents": "./dist/cli.js"
+  },
+  "main": "./dist/cli.js",
+  "files": [
+    "dist",
+    "integrations"
+  ],
+  "scripts": {
+    "build": "node scripts/copy-integrations.mjs && tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test src/**/*.test.ts",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@duel-agents/core": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2aronS/Duel-Agents.git",
+    "directory": "packages/cli"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

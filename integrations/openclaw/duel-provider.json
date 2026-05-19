@@ -1,0 +1,32 @@
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "duel": {
+        "baseUrl": "https://api.duel-agents.com/v1",
+        "apiKey": "${DUEL_API_KEY}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "duel-auto",
+            "name": "Duel Auto",
+            "reasoning": false,
+            "input": ["text"]
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": { "primary": "duel/duel-auto" },
+      "models": {
+        "duel/duel-auto": { "alias": "Duel" }
+      }
+    }
+  },
+  "env": {
+    "DUEL_API_KEY": "duel_REPLACE_ME",
+    "DUEL_PROXY_URL": "https://api.duel-agents.com/v1"
+  }
+}

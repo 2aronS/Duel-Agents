@@ -1,0 +1,38 @@
+// Merge this block into ~/.openclaw/openclaw.json
+// Or run: npx @duel-agents/install openclaw
+
+{
+  models: {
+    mode: "merge",
+    providers: {
+      duel: {
+        baseUrl: "https://api.duel-agents.com/v1",
+        apiKey: "${DUEL_API_KEY}",
+        api: "openai-completions",
+        models: [
+          {
+            id: "duel-auto",
+            name: "Duel Auto",
+            reasoning: false,
+            input: ["text"],
+            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            contextWindow: 200000,
+            maxTokens: 8192,
+          },
+        ],
+      },
+    },
+  },
+  agents: {
+    defaults: {
+      model: { primary: "duel/duel-auto" },
+      models: {
+        "duel/duel-auto": { alias: "Duel" },
+      },
+    },
+  },
+  env: {
+    DUEL_API_KEY: "duel_REPLACE_WITH_YOUR_KEY",
+    DUEL_PROXY_URL: "https://api.duel-agents.com/v1",
+  },
+}

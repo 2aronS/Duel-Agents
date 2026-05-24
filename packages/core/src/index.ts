@@ -11,10 +11,35 @@ import {
   type InstallTarget,
 } from "./config.js";
 
+function isPathInside(child: string, parent: string): boolean {
+  const resolvedChild = resolve(child);
+  const resolvedParent = resolve(parent);
+  if (resolvedChild === resolvedParent) return true;
+
+  const prefix = resolvedParent.endsWith(sep)
+    ? resolvedParent
+    : resolvedParent + sep;
+
+  // Cross-drive paths on Windows make relative() return an absolute path.
+  const rel = relative(resolvedParent, resolvedChild);
+  if (rel === ".." || rel.startsWith(`..${sep}`)) return false;
+  if (rel.includes(":") || rel.startsWith(sep)) return false;
+
+  return resolvedChild.startsWith(prefix);
+}
+
 export function resolveOpenClawConfigPath(): string {
+  const openclawDir = resolve(homedir(), ".openclaw");
   const fromEnv = process.env.OPENCLAW_CONFIG_PATH?.trim();
-  if (fromEnv) return fromEnv;
-  return join(homedir(), ".openclaw", "openclaw.json");
+  if (!fromEnv) return join(openclawDir, "openclaw.json");
+
+  const resolved = resolve(fromEnv);
+  if (!isPathInside(resolved, openclawDir)) {
+    throw new Error(
+      `OPENCLAW_CONFIG_PATH must be inside ${openclawDir}. Got: ${fromEnv}`,
+    );
+  }
+  return resolved;
 }
 
 export function resolveClaudeEnvPath(): string {
@@ -42,6 +67,29 @@ function parseEnvLine(line: string): { key: string; value: string } | null {
   return { key, value };
 }
 
+const PROVIDER_KEYS = new Set(["ANTHROPIC_API_KEY", "OPENAI_API_KEY"]);
+
+export function scanEnvConflicts(
+  existing: string,
+  vars: Record<string, string>,
+): string[] {
+  const warnings: string[] = [];
+
+  for (const line of existing.split(/\r?\n/)) {
+    const parsed = parseEnvLine(line);
+    if (!parsed) continue;
+    if (!PROVIDER_KEYS.has(parsed.key)) continue;
+    if (!(parsed.key in vars)) continue;
+    if (parsed.value.startsWith("duel_")) continue;
+
+    warnings.push(
+      `${parsed.key} will be replaced with your Duel API key (previous value was not a duel_* key).`,
+    );
+  }
+
+  return warnings;
+}
+
 export async function mergeEnvFile(
   filePath: string,
   vars: Record<string, string>,
@@ -55,6 +103,7 @@ export async function mergeEnvFile(
     existing = "";
   }
 
+  const warnings = scanEnvConflicts(existing, vars);
   const lines = existing.split(/\r?\n/);
   const keys = new Set(Object.keys(vars));
   const kept: string[] = [];
@@ -76,7 +125,7 @@ export async function mergeEnvFile(
   const newLines = Object.entries(vars).map(([k, v]) => `${k}=${quoteEnv(v)}`);
   const body = [...kept, ...newLines, ""].join("\n");
   await writeFile(filePath, body, "utf8");
-  return [];
+  return warnings;
 }
 
 function quoteEnv(value: string): string {

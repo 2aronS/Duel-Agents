@@ -1,0 +1,68 @@
+name: Release
+
+
+
+on:
+
+  push:
+
+    tags:
+
+      - "v*"
+
+
+
+jobs:
+
+  publish:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+
+      contents: read
+
+      id-token: write
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+
+        with:
+
+          node-version: 22
+
+          registry-url: https://registry.npmjs.org
+
+          cache: npm
+
+          cache-dependency-path: package-lock.json
+
+      - name: Install
+
+        run: npm ci
+
+      - name: Build
+
+        run: npm run build
+
+      - name: Test
+
+        run: npm test
+
+      - name: Publish packages
+
+        run: |
+
+          npm publish --workspace @duel-agents/core --access public
+
+          npm publish --workspace @duel-agents/sdk --access public
+
+          npm publish --workspace @duel-agents/install --access public
+
+        env:
+
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+

@@ -44,7 +44,7 @@ export function getProxyUrl(): string {
   const url = fromEnv || DEFAULT_PROXY_URL;
   if (!/^https?:\/\/.+/i.test(url)) {
     throw new Error(
-`Invalid DUEL_PROXY_URL "${url}". Expected an http(s) URL.`,
+      `Invalid DUEL_PROXY_URL "${url}". Expected an http(s) URL (trailing slashes are stripped automatically).`,
     );
   }
   return url.replace(/\/$/, "");
@@ -123,7 +123,6 @@ export function buildOpenClawPatch(
       },
     },
     env: {
-      DUEL_API_KEY: apiKey,
       DUEL_PROXY_URL: proxyUrl,
     },
   };

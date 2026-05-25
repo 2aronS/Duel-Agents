@@ -39,6 +39,24 @@ describe("requireApiKey", () => {
   });
 });
 
+describe("buildOpenClawPatch", () => {
+  it("includes duel provider", () => {
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+    const patch = buildOpenClawPatch(key);
+    const models = patch.models as Record<string, unknown>;
+    const providers = (models.providers ?? {}) as Record<string, unknown>;
+    assert.ok(providers.duel);
+  });
+
+  it("does not embed raw api key in openclaw.json env block", () => {
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+    const patch = buildOpenClawPatch(key);
+    const env = patch.env as Record<string, string>;
+    assert.equal(env.DUEL_API_KEY, undefined);
+    assert.match(env.DUEL_PROXY_URL, /api\.duel-agents\.com/);
+  });
+});
+
 describe("deepMerge", () => {
   it("merges nested objects", () => {
     const out = deepMerge(
@@ -90,3 +108,76 @@ describe("scanEnvConflicts", () => {
   });
 });
 
+describe("patchOpenClawConfig", () => {
+  it("writes duel provider block", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "duel-openclaw-"));
+    const path = join(dir, "openclaw.json");
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+
+    await patchOpenClawConfig(path, key);
+    await patchOpenClawConfig(path, key);
+
+    const body = await readFile(path, "utf8");
+    assert.match(body, /duel-auto/);
+    assert.match(body, /api\.duel-agents\.com\/v1/);
+    assert.equal(body.includes(key), false);
+
+    await access(`${path}.bak`);
+  });
+
+  it("preserves existing default model on re-install", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "duel-openclaw-"));
+    const path = join(dir, "openclaw.json");
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+
+    await writeFile(
+      path,
+      JSON.stringify({
+        agents: { defaults: { model: { primary: "openai/gpt-4o" } } },
+      }),
+      "utf8",
+    );
+
+    await patchOpenClawConfig(path, key);
+    const body = JSON5.parse(await readFile(path, "utf8"));
+    assert.equal(body.agents.defaults.model.primary, "openai/gpt-4o");
+  });
+});
+
+describe("resolveOpenClawConfigPath", () => {
+  it("rejects paths outside ~/.openclaw", async () => {
+    const outsideDir = await mkdtemp(join(tmpdir(), "duel-outside-openclaw-"));
+    const prev = process.env.OPENCLAW_CONFIG_PATH;
+    process.env.OPENCLAW_CONFIG_PATH = join(outsideDir, "openclaw.json");
+    try {
+      assert.throws(() => resolveOpenClawConfigPath(), /must be inside/);
+    } finally {
+      if (prev === undefined) delete process.env.OPENCLAW_CONFIG_PATH;
+      else process.env.OPENCLAW_CONFIG_PATH = prev;
+    }
+  });
+});
+
+describe("getProxyUrl", () => {
+  it("strips trailing slash", () => {
+    const prev = process.env.DUEL_PROXY_URL;
+    process.env.DUEL_PROXY_URL = "https://example.com/v1/";
+    try {
+      assert.equal(getProxyUrl(), "https://example.com/v1");
+    } finally {
+      if (prev === undefined) delete process.env.DUEL_PROXY_URL;
+      else process.env.DUEL_PROXY_URL = prev;
+    }
+  });
+
+  it("rejects invalid URLs", () => {
+    const prev = process.env.DUEL_PROXY_URL;
+    process.env.DUEL_PROXY_URL = "not-a-url";
+    try {
+      assert.throws(() => getProxyUrl(), /Invalid DUEL_PROXY_URL/);
+    } finally {
+      if (prev === undefined) delete process.env.DUEL_PROXY_URL;
+      else process.env.DUEL_PROXY_URL = prev;
+    }
+  });
+});

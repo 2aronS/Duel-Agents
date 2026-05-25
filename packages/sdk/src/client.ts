@@ -9,6 +9,8 @@ export interface DuelClientOptions {
   apiKey: string;
   baseUrl?: string;
   fetch?: typeof fetch;
+  /** Request timeout in ms. Default 60_000. */
+  timeoutMs?: number;
 }
 
 export interface ChatMessage {
@@ -61,6 +63,7 @@ export class DuelClient {
   readonly apiKey: string;
   readonly baseUrl: string;
   private readonly fetchFn: typeof fetch;
+  private readonly timeoutMs: number;
 
   constructor(opts: DuelClientOptions) {
     if (!opts?.apiKey) {
@@ -71,6 +74,7 @@ export class DuelClient {
     this.apiKey = requireApiKey(opts.apiKey);
     this.baseUrl = (opts.baseUrl ?? DEFAULT_PROXY_URL).replace(/\/$/, "");
     this.fetchFn = opts.fetch ?? fetch;
+    this.timeoutMs = opts.timeoutMs ?? 60_000;
 
     this.chat = {
       completions: {
@@ -128,6 +132,7 @@ export class DuelClient {
       method: "POST",
       headers,
       body: JSON.stringify(body),
+      signal: AbortSignal.timeout(this.timeoutMs),
     });
 
     const text = await res.text();

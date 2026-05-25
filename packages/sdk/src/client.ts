@@ -126,6 +126,7 @@ export class DuelClient {
     };
     if (protocol === "anthropic") {
       headers["anthropic-version"] = "2023-06-01";
+      headers["x-api-key"] = this.apiKey;
     }
 
     const res = await this.fetchFn(`${this.baseUrl}${path}`, {

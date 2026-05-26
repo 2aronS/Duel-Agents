@@ -118,7 +118,8 @@ export async function installForTarget(
     console.log("\nNext steps:");
     console.log("  1. Run: openclaw config validate");
     console.log("  2. Restart the OpenClaw gateway if it is running");
-    console.log("  3. Default model is now duel/duel-auto");
+    console.log("  3. Default model is duel/duel-auto (existing default preserved on re-install)");
+    console.log("  4. API key stored in ~/.openclaw/.env (not in openclaw.json)");
     await copyOpenClawSkill();
   }
 
@@ -177,7 +178,7 @@ export async function runInstall(
       await installForTarget(t, apiKey);
       console.log("");
     }
-    return 0;
+    return runDoctor(apiKey);
   }
 
   if (!ALL_TARGETS.includes(targetArg as InstallTarget)) {

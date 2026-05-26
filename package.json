@@ -8,7 +8,9 @@
   ],
   "scripts": {
     "build": "npm run build -w @duel-agents/core && npm run build -w @duel-agents/sdk -w @duel-agents/install",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present"
   },
   "engines": {
     "node": ">=20"

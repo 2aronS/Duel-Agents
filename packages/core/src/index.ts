@@ -42,6 +42,10 @@ export function resolveOpenClawConfigPath(): string {
   return resolved;
 }
 
+export function resolveOpenClawEnvPath(): string {
+  return join(homedir(), ".openclaw", ".env");
+}
+
 export function resolveClaudeEnvPath(): string {
   return join(homedir(), ".claude", ".env");
 }
@@ -170,6 +174,23 @@ export async function patchOpenClawConfig(
     if (code !== "ENOENT") throw err;
   }
 
+  // Preserve an existing default model on re-install.
+  const existingPrimary = (
+    (current.agents as Record<string, unknown> | undefined)?.defaults as
+      | Record<string, unknown>
+      | undefined
+  )?.model as Record<string, unknown> | undefined;
+  if (existingPrimary?.primary) {
+    const agentsPatch = patch.agents as Record<string, unknown> | undefined;
+    const defaultsPatch = agentsPatch?.defaults as
+      | Record<string, unknown>
+      | undefined;
+    const modelPatch = defaultsPatch?.model as
+      | Record<string, unknown>
+      | undefined;
+    if (modelPatch) delete modelPatch.primary;
+  }
+
   const merged = deepMerge(current, patch);
   await writeFile(configPath, JSON5.stringify(merged, null, 2) + "\n", "utf8");
 }
@@ -189,7 +210,12 @@ async function writeTargetEnv(
 
   if (target === "openclaw") {
     await patchOpenClawConfig(path, apiKey, proxyUrl);
-    return { path, vars, warnings: [] };
+    const envPath = resolveOpenClawEnvPath();
+    const envWarnings = await mergeEnvFile(envPath, {
+      DUEL_API_KEY: apiKey,
+      DUEL_PROXY_URL: proxyUrl,
+    });
+    return { path, vars, warnings: envWarnings };
   }
 
   const warnings = await mergeEnvFile(path, vars);

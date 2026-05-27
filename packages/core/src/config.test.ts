@@ -53,7 +53,7 @@ describe("buildOpenClawPatch", () => {
     const patch = buildOpenClawPatch(key);
     const env = patch.env as Record<string, string>;
     assert.equal(env.DUEL_API_KEY, undefined);
-    assert.match(env.DUEL_PROXY_URL, /api\.duel-agents\.com/);
+    assert.match(env.DUEL_PROXY_URL, /duelagents\.com/);
   });
 });
 
@@ -119,7 +119,7 @@ describe("patchOpenClawConfig", () => {
 
     const body = await readFile(path, "utf8");
     assert.match(body, /duel-auto/);
-    assert.match(body, /api\.duel-agents\.com\/v1/);
+    assert.match(body, /duelagents\.com\/v1/);
     assert.equal(body.includes(key), false);
 
     await access(`${path}.bak`);

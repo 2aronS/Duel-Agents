@@ -15,7 +15,7 @@ This writes `DUEL_API_KEY` to your project `.env` and copies the Duel skill to `
 
 1. Open **Cursor → Settings → Models**
 2. Enable **Override OpenAI Base URL**
-3. Set base URL to: `https://api.duel-agents.com/v1`
+3. Set base URL to: `https://duelagents.com/v1`
 4. Set API key to your Duel key from https://duelagents.com/dashboard/settings
 5. Reload the window
 

@@ -2,7 +2,7 @@
 name: duel-agents
 description: >-
   Configure and use Duel Agents model routing in Claude Code. Requires a Duel
-  API key from duelagents.com — routes all LLM traffic through api.duel-agents.com.
+  API key from duelagents.com — routes all LLM traffic through duelagents.com/v1.
 ---
 
 # Duel Agents
@@ -16,7 +16,7 @@ Duel Agents runs your prompts against multiple models and picks the cheapest ans
 3. Or set manually in `~/.claude/.env`:
 
 ```bash
-ANTHROPIC_BASE_URL=https://api.duel-agents.com/v1
+ANTHROPIC_BASE_URL=https://duelagents.com/v1
 ANTHROPIC_API_KEY=duel_yourprefix_yoursecret
 ```
 

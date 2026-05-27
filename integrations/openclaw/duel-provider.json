@@ -3,7 +3,7 @@
     "mode": "merge",
     "providers": {
       "duel": {
-        "baseUrl": "https://api.duel-agents.com/v1",
+        "baseUrl": "https://duelagents.com/v1",
         "apiKey": "${DUEL_API_KEY}",
         "api": "openai-completions",
         "models": [
@@ -27,6 +27,6 @@
   },
   "env": {
     "DUEL_API_KEY": "duel_REPLACE_ME",
-    "DUEL_PROXY_URL": "https://api.duel-agents.com/v1"
+    "DUEL_PROXY_URL": "https://duelagents.com/v1"
   }
 }

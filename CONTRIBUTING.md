@@ -23,7 +23,7 @@ npm test
 
 ## Rules
 
-- **Every integration must use a Duel API key** — do not add docs or code paths that bypass `api.duel-agents.com` with raw provider keys.
+- **Every integration must use a Duel API key** — do not add docs or code paths that bypass `duelagents.com/v1` with raw provider keys.
 - Keep dependencies minimal.
 - Add tests for core logic changes.
 - Run `npm run build && npm test` before opening a PR.

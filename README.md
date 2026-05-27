@@ -6,7 +6,7 @@ This repo is the official integration package for [duelagents.com](https://duela
 
 ## Requirements
 
-Every tool in this repo routes LLM traffic through **`https://api.duel-agents.com/v1`** with a **Duel API key** (`duel_<prefix>_<secret>`).
+Every tool in this repo routes LLM traffic through **`https://duelagents.com/v1`** with a **Duel API key** (`duel_<prefix>_<secret>`).
 
 You cannot use raw Anthropic or OpenAI keys with these integrations — get a key from the dashboard:
 
@@ -50,7 +50,7 @@ Use `/duel-agents:setup` in Claude Code for guided setup.
 
 The installer copies a skill to `.cursor/skills/duel-agents/` and writes `DUEL_API_KEY` to your project `.env`.
 
-You still need to set **Settings → Models → Override OpenAI Base URL** to `https://api.duel-agents.com/v1` with your Duel key. See [templates/cursor-models.override.md](templates/cursor-models.override.md).
+You still need to set **Settings → Models → Override OpenAI Base URL** to `https://duelagents.com/v1` with your Duel key. See [templates/cursor-models.override.md](templates/cursor-models.override.md).
 
 ### Codex CLI
 
@@ -99,7 +99,7 @@ const msg = await duel.messages.create({
 Hermes Agent, Venice, and any OpenAI-compatible client can use the same pattern:
 
 ```bash
-OPENAI_BASE_URL=https://api.duel-agents.com/v1
+OPENAI_BASE_URL=https://duelagents.com/v1
 OPENAI_API_KEY=duel_yourprefix_yoursecret
 ```
 
@@ -118,7 +118,7 @@ OPENAI_API_KEY=duel_yourprefix_yoursecret
 |---------|-----|
 | `Invalid API key format` | Key must be `duel_` + 8 chars + `_` + 32 chars. Create one at the dashboard. |
 | `401` from doctor | Key revoked or subscription inactive — create a new key on billing/settings. |
-| `Could not reach Duel API` | The proxy at `api.duel-agents.com` must be running. Key format can still be valid — retry later. |
+| `Could not reach Duel API` | The proxy at `duelagents.com/v1` must be running. Key format can still be valid — retry later. |
 | OpenClaw won't start | Run `openclaw config validate` after install; restore from `openclaw.json.bak` if needed. |
 | Cursor still uses OpenAI | Confirm model override URL and that the API key field is your `duel_*` key. |
 | Skill copy failed after npm install | Re-run `npm run build` in the repo, or reinstall `@duel-agents/install` — skills ship inside the package. |

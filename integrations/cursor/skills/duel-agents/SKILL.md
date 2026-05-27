@@ -7,7 +7,7 @@ description: >-
 
 # Duel Agents (Cursor)
 
-Duel Agents routes IDE prompts through `https://api.duel-agents.com/v1` using your **Duel API key**. You must subscribe and create a key at https://duelagents.com/dashboard/settings.
+Duel Agents routes IDE prompts through `https://duelagents.com/v1` using your **Duel API key**. You must subscribe and create a key at https://duelagents.com/dashboard/settings.
 
 ## Quick setup
 
@@ -21,7 +21,7 @@ npx @duel-agents/install doctor
 
 1. **Settings → Models**
 2. Enable **Override OpenAI Base URL**
-3. Base URL: `https://api.duel-agents.com/v1`
+3. Base URL: `https://duelagents.com/v1`
 4. API key: your `duel_*` key (not an OpenAI key)
 
 ## SDK for custom tools

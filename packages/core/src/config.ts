@@ -1,4 +1,4 @@
-export const DEFAULT_PROXY_URL = "https://api.duel-agents.com/v1";
+export const DEFAULT_PROXY_URL = "https://duelagents.com/v1";
 export const DASHBOARD_URL = "https://duelagents.com/dashboard/settings";
 export const KEY_DOCS_URL = "https://duelagents.com/dashboard/settings";
 

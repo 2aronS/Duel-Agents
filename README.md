@@ -112,3 +112,37 @@ OPENAI_API_KEY=duel_yourprefix_yoursecret
 | `DUEL_PROXY_URL` | Override proxy URL (staging only) |
 | `OPENCLAW_CONFIG_PATH` | Custom OpenClaw config path |
 
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `Invalid API key format` | Key must be `duel_` + 8 chars + `_` + 32 chars. Create one at the dashboard. |
+| `401` from doctor | Key revoked or subscription inactive — create a new key on billing/settings. |
+| `Could not reach Duel API` | The proxy at `api.duel-agents.com` must be running. Key format can still be valid — retry later. |
+| OpenClaw won't start | Run `openclaw config validate` after install; restore from `openclaw.json.bak` if needed. |
+| Cursor still uses OpenAI | Confirm model override URL and that the API key field is your `duel_*` key. |
+| Skill copy failed after npm install | Re-run `npm run build` in the repo, or reinstall `@duel-agents/install` — skills ship inside the package. |
+
+## Repo map
+
+```
+packages/core     @duel-agents/core   — validation, env maps, connectivity
+packages/cli      @duel-agents/install — installer CLI
+packages/sdk      @duel-agents/sdk    — TypeScript API client
+integrations/     Claude plugin, Cursor skill, OpenClaw skill
+templates/        Example env and config files
+```
+
+## Development
+
+```bash
+npm install
+npm run build
+npm test
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+MIT — see [LICENSE](LICENSE).

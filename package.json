@@ -2,7 +2,7 @@
   "name": "duel-agents-monorepo",
   "private": true,
   "version": "0.1.0",
-  "description": "Duel Agents integration monorepo — CLI, SDK, and IDE plugins",
+  "description": "Duel Agents integration monorepo: CLI, SDK, and IDE plugins",
   "workspaces": [
     "packages/*"
   ],

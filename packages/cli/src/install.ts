@@ -90,7 +90,7 @@ export async function runDoctor(apiKey: string): Promise<number> {
   }
 
   console.warn(`⚠ ${result.message}`);
-  console.warn("  Key format is valid but live check failed — try again later.");
+  console.warn("  Key format is valid but live check failed. Try again later.");
   return 0;
 }
 

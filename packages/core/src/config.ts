@@ -31,7 +31,7 @@ export function requireApiKey(
   const trimmed = input?.trim() ?? "";
   if (!validateApiKey(trimmed)) {
     throw new Error(
-      `Invalid or missing ${label}. Get a Duel API key at ${DASHBOARD_URL} — format: duel_<prefix>_<secret>`,
+      `Invalid or missing ${label}. Get a Duel API key at ${DASHBOARD_URL}. Format: duel_<prefix>_<secret>`,
     );
   }
   return trimmed;

@@ -1,7 +1,7 @@
 {
   "name": "duel-agents",
   "version": "0.1.0",
-  "description": "Route IDE and agent prompts through Duel Agents — concurrent model routing with a single API key.",
+  "description": "Route IDE and agent prompts through Duel Agents: concurrent model routing with a single API key.",
   "author": {
     "name": "Duel Agents",
     "url": "https://duelagents.com"

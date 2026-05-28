@@ -11,6 +11,6 @@ Walk the user through Duel Agents setup:
    - `ANTHROPIC_BASE_URL=https://duelagents.com/v1`
    - `ANTHROPIC_API_KEY=<their duel_* key>`
 3. Run `npx @duel-agents/install doctor` to verify connectivity
-4. Remind them: **only Duel API keys work** — do not use raw Anthropic keys with Duel
+4. Remind them: **only Duel API keys work**. Do not use raw Anthropic keys with Duel
 
 If they want to build custom tooling, point them to `@duel-agents/sdk`.

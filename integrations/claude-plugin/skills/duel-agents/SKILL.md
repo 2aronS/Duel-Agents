@@ -2,12 +2,12 @@
 name: duel-agents
 description: >-
   Configure and use Duel Agents model routing in Claude Code. Requires a Duel
-  API key from duelagents.com — routes all LLM traffic through duelagents.com/v1.
+  API key from duelagents.com. Routes all LLM traffic through duelagents.com/v1.
 ---
 
 # Duel Agents
 
-Duel Agents runs your prompts against multiple models and picks the cheapest answer that still passes quality checks. Every request must use your **Duel API key** — never substitute a direct Anthropic or OpenAI key.
+Duel Agents runs your prompts against multiple models and picks the cheapest answer that still passes quality checks. Every request must use your **Duel API key**. Never substitute a direct Anthropic or OpenAI key.
 
 ## Setup
 
@@ -30,7 +30,7 @@ npx @duel-agents/install doctor
 
 ## Build on top
 
-Use `@duel-agents/sdk` in your own tools — always pass `apiKey` from your Duel dashboard.
+Use `@duel-agents/sdk` in your own tools. Always pass `apiKey` from your Duel dashboard.
 
 ```ts
 import { DuelClient } from "@duel-agents/sdk";

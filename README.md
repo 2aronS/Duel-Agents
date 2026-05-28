@@ -1,6 +1,6 @@
 # Duel Agents
 
-**Use, extend, and ship with Duel Agents** — the IDE-native routing layer that runs prompts against multiple models and picks the cheapest answer that still wins.
+**Use, extend, and ship with Duel Agents**: the IDE-native routing layer that runs prompts against multiple models and picks the cheapest answer that still wins.
 
 This repo is the official integration package for [duelagents.com](https://duelagents.com).
 
@@ -8,7 +8,7 @@ This repo is the official integration package for [duelagents.com](https://duela
 
 Every tool in this repo routes LLM traffic through **`https://duelagents.com/v1`** with a **Duel API key** (`duel_<prefix>_<secret>`).
 
-You cannot use raw Anthropic or OpenAI keys with these integrations — get a key from the dashboard:
+You cannot use raw Anthropic or OpenAI keys with these integrations. Get a key from the dashboard:
 
 **https://duelagents.com/dashboard/settings** (subscribe → create API key)
 
@@ -58,7 +58,7 @@ Writes `OPENAI_BASE_URL` and `OPENAI_API_KEY` (your Duel key) to `.env`. Restart
 
 ### OpenClaw
 
-Patches `~/.openclaw/openclaw.json` with a `duel` provider and sets default model to `duel/duel-auto`. Telegram/Discord channels are unchanged — only the model backend switches to Duel.
+Patches `~/.openclaw/openclaw.json` with a `duel` provider and sets default model to `duel/duel-auto`. Telegram/Discord channels are unchanged. Only the model backend switches to Duel.
 
 ```bash
 npx @duel-agents/install openclaw
@@ -79,7 +79,7 @@ npm install @duel-agents/sdk
 import { DuelClient } from "@duel-agents/sdk";
 
 const duel = new DuelClient({
-  apiKey: process.env.DUEL_API_KEY!, // required — from dashboard
+  apiKey: process.env.DUEL_API_KEY!, // required (from dashboard)
 });
 
 // OpenAI-compatible
@@ -117,18 +117,18 @@ OPENAI_API_KEY=duel_yourprefix_yoursecret
 | Symptom | Fix |
 |---------|-----|
 | `Invalid API key format` | Key must be `duel_` + 8 chars + `_` + 32 chars. Create one at the dashboard. |
-| `401` from doctor | Key revoked or subscription inactive — create a new key on billing/settings. |
-| `Could not reach Duel API` | The proxy at `duelagents.com/v1` must be running. Key format can still be valid — retry later. |
+| `401` from doctor | Key revoked or subscription inactive. Create a new key on billing/settings. |
+| `Could not reach Duel API` | The proxy at `duelagents.com/v1` must be running. Key format can still be valid; retry later. |
 | OpenClaw won't start | Run `openclaw config validate` after install; restore from `openclaw.json.bak` if needed. |
 | Cursor still uses OpenAI | Confirm model override URL and that the API key field is your `duel_*` key. |
-| Skill copy failed after npm install | Re-run `npm run build` in the repo, or reinstall `@duel-agents/install` — skills ship inside the package. |
+| Skill copy failed after npm install | Re-run `npm run build` in the repo, or reinstall `@duel-agents/install`. Skills ship inside the package. |
 
 ## Repo map
 
 ```
-packages/core     @duel-agents/core   — validation, env maps, connectivity
-packages/cli      @duel-agents/install — installer CLI
-packages/sdk      @duel-agents/sdk    — TypeScript API client
+packages/core     @duel-agents/core    validation, env maps, connectivity
+packages/cli      @duel-agents/install installer CLI
+packages/sdk      @duel-agents/sdk     TypeScript API client
 integrations/     Claude plugin, Cursor skill, OpenClaw skill
 templates/        Example env and config files
 ```
@@ -145,4 +145,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

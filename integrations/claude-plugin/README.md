@@ -1,4 +1,4 @@
-# Duel Agents — Claude Code plugin
+# Duel Agents: Claude Code plugin
 
 Install this plugin to get Duel Agents skills and setup commands in Claude Code.
 

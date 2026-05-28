@@ -9,7 +9,7 @@ import {
 import { runDoctor, runInstall, resolveApiKeyFromEnv } from "./install.js";
 
 const USAGE = `
-@duel-agents/install — route your IDE through Duel Agents
+@duel-agents/install: route your IDE through Duel Agents
 
 Usage:
   npx @duel-agents/install [target]
@@ -24,7 +24,7 @@ Targets:
   (omit)        Install all targets interactively
 
 Environment:
-  DUEL_API_KEY or DUEL_AGENTS_API_KEY — your Duel API key (required)
+  DUEL_API_KEY or DUEL_AGENTS_API_KEY: your Duel API key (required)
 
 Get a key: ${DASHBOARD_URL}
 `.trim();
@@ -34,7 +34,7 @@ async function promptForKey(): Promise<string> {
   if (fromEnv && validateApiKey(fromEnv)) return fromEnv;
   if (fromEnv && !validateApiKey(fromEnv)) {
     console.warn(
-      "⚠ DUEL_API_KEY is set but has invalid format — you'll be prompted for a new key.",
+      "Warning: DUEL_API_KEY is set but has invalid format. You'll be prompted for a new key.",
     );
   }
 

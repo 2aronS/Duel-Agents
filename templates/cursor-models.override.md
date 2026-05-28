@@ -1,4 +1,4 @@
-# Cursor — Duel Agents model override
+# Cursor: Duel Agents model override
 
 Duel Agents routes Cursor through the Duel proxy. You **must** use a Duel API key (`duel_*`), not an OpenAI or Anthropic key.
 

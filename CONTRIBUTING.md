@@ -23,7 +23,7 @@ npm test
 
 ## Rules
 
-- **Every integration must use a Duel API key** — do not add docs or code paths that bypass `duelagents.com/v1` with raw provider keys.
+- **Every integration must use a Duel API key.** Do not add docs or code paths that bypass `duelagents.com/v1` with raw provider keys.
 - Keep dependencies minimal.
 - Add tests for core logic changes.
 - Run `npm run build && npm test` before opening a PR.
@@ -32,11 +32,11 @@ npm test
 
 Before releasing:
 
-- [ ] `DUEL_API_KEY=duel_… npx @duel-agents/install doctor` — format + live auth
-- [ ] `npx @duel-agents/install claude-code` — updates `~/.claude/.env`
-- [ ] `npx @duel-agents/install cursor` — copies skill + project `.env`
-- [ ] `npx @duel-agents/install codex` — writes OpenAI-compat env
-- [ ] `npx @duel-agents/install openclaw` — patches `~/.openclaw/openclaw.json`, `openclaw config validate` passes
+- [ ] `DUEL_API_KEY=duel_… npx @duel-agents/install doctor` (format + live auth)
+- [ ] `npx @duel-agents/install claude-code` (updates `~/.claude/.env`)
+- [ ] `npx @duel-agents/install cursor` (copies skill + project `.env`)
+- [ ] `npx @duel-agents/install codex` (writes OpenAI-compat env)
+- [ ] `npx @duel-agents/install openclaw` (patches `~/.openclaw/openclaw.json`, `openclaw config validate` passes)
 - [ ] Claude plugin loads: `claude plugin install ./integrations/claude-plugin`
 - [ ] SDK: `new DuelClient({ apiKey })` throws without key
 

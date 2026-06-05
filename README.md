@@ -4,6 +4,16 @@
 
 This repo is the official integration package for [duelagents.com](https://duelagents.com).
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=2aronS%2FDuel-Agents&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=2aronS/Duel-Agents&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=2aronS/Duel-Agents&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=2aronS/Duel-Agents&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## Requirements
 
 Every tool in this repo routes LLM traffic through **`https://duelagents.com/v1`** with a **Duel API key** (`duel_<prefix>_<secret>`).

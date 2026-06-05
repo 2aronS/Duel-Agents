@@ -103,6 +103,48 @@ OPENAI_BASE_URL=https://duelagents.com/v1
 OPENAI_API_KEY=duel_yourprefix_yoursecret
 ```
 
+## LangChain and LlamaIndex
+
+Duel is OpenAI wire compatible, so it works with the major Python frameworks.
+
+### Official packages
+
+```bash
+pip install langchain-duel        # LangChain
+pip install llama-index-llms-duel # LlamaIndex
+```
+
+```python
+from langchain_duel import ChatDuel
+
+llm = ChatDuel(model="duel-auto")  # reads DUEL_API_KEY
+llm.invoke("Explain concurrent agents in one sentence.")
+```
+
+```python
+from llama_index.llms.duel import DuelLLM
+
+llm = DuelLLM(model="duel-auto")   # reads DUEL_API_KEY
+llm.complete("Explain concurrent agents in one sentence.")
+```
+
+Source for both lives in [`python/`](python/). They default to `duel-auto`
+routing and the `https://duelagents.com/v1` proxy.
+
+### Without the packages
+
+Any LangChain or LlamaIndex OpenAI client works by pointing at the proxy:
+
+```python
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(
+    model="duel-auto",
+    base_url="https://duelagents.com/v1",
+    api_key="duel_yourprefix_yoursecret",
+)
+```
+
 ## Configuration
 
 | Variable | Purpose |
@@ -130,6 +172,7 @@ packages/core     @duel-agents/core    validation, env maps, connectivity
 packages/cli      @duel-agents/install installer CLI
 packages/sdk      @duel-agents/sdk     TypeScript API client
 integrations/     Claude plugin, Cursor skill, OpenClaw skill
+python/           langchain-duel, llama-index-llms-duel
 templates/        Example env and config files
 ```
 

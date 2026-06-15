@@ -10,7 +10,7 @@ This repo is the official integration package for [duelagents.com](https://duela
 
 **$DUEL** is the tokenized equity of Duel Agents on Base (launched on Clanker launchpad) buy it by swapping ETH for the token on any Base DEX like Uniswap.
 
-CA: 
+CA: 0x734636e5d8885f50df75edbd766184b733174b07
 
 ## Star History
 

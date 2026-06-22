@@ -6,12 +6,6 @@
 
 This repo is the official integration package for [duelagents.com](https://duelagents.com).
 
-## $DUEL Token
-
-**$DUEL** is the tokenized equity of Duel Agents on Base (launched on Clanker launchpad) buy it by swapping ETH for the token on any Base DEX like Uniswap.
-
-CA: 0x734636e5d8885f50df75edbd766184b733174b07
-
 ## Star History
 
 <a href="https://www.star-history.com/?repos=2aronS%2FDuel-Agents&type=date&legend=top-left">

@@ -21,6 +21,7 @@ Targets:
   codex         OpenAI-compatible (Codex CLI)
   openclaw      OpenClaw gateway config
   all           Install all targets
+  doctor        Verify key format and live connectivity
   (omit)        Install all targets interactively
 
 Environment:

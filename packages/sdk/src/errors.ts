@@ -1,3 +1,4 @@
+/** Base class for all errors thrown by the Duel SDK. */
 export class DuelError extends Error {
   constructor(message: string) {
     super(message);
@@ -5,6 +6,7 @@ export class DuelError extends Error {
   }
 }
 
+/** Thrown when the API rejects the key (HTTP 401 or 403). */
 export class DuelAuthError extends DuelError {
   readonly status: number;
 
@@ -15,6 +17,7 @@ export class DuelAuthError extends DuelError {
   }
 }
 
+/** Thrown for other non-2xx responses; carries the status and parsed body. */
 export class DuelApiError extends DuelError {
   readonly status: number;
   readonly body: unknown;

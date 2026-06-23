@@ -19,6 +19,14 @@ describe("DuelClient", () => {
     assert.equal(client.apiKey.startsWith("duel_"), true);
   });
 
+  it("strips a trailing slash from baseUrl", () => {
+    const client = new DuelClient({
+      apiKey: "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3",
+      baseUrl: "https://example.com/v1/",
+    });
+    assert.equal(client.baseUrl, "https://example.com/v1");
+  });
+
   it("rejects streaming requests", async () => {
     const client = new DuelClient({
       apiKey: "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3",

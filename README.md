@@ -62,11 +62,11 @@ Use `/duel-agents:setup` in Claude Code for guided setup.
 
 The installer copies a skill to `.cursor/skills/duel-agents/` and writes `DUEL_API_KEY` to your project `.env`.
 
-You still need to set **Settings → Models → Override OpenAI Base URL** to `https://duelagents.com/v1` with your Duel key. See [templates/cursor-models.override.md](templates/cursor-models.override.md).
+You still need to set **Settings → Models → Override OpenAI Base URL** to `https://duelagents.com/v1` with your Duel key. See [templates/cursor-models.override.md](templates/cursor-models.override.md) and [templates/env.cursor.example](templates/env.cursor.example).
 
 ### Codex CLI
 
-Writes `OPENAI_BASE_URL` and `OPENAI_API_KEY` (your Duel key) to `.env`. Restart Codex after install.
+Writes `OPENAI_BASE_URL` and `OPENAI_API_KEY` (your Duel key) to `.env`. Restart Codex after install. See [templates/env.codex.example](templates/env.codex.example).
 
 ### OpenClaw
 
@@ -77,7 +77,7 @@ npx @duel-agents/install openclaw
 openclaw config validate
 ```
 
-Reference config: [templates/openclaw.duel.json5](templates/openclaw.duel.json5)
+Reference config: [templates/openclaw.duel.json5](templates/openclaw.duel.json5) and [templates/env.openclaw.example](templates/env.openclaw.example)
 
 ## Build on top
 

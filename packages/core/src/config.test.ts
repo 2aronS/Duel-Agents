@@ -6,6 +6,8 @@ import {
   buildOpenClawPatch,
   deepMerge,
   getProxyUrl,
+  getEnvForTarget,
+  checkConnectivity,
 } from "./config.js";
 import {
   mergeEnvFile,
@@ -179,5 +181,37 @@ describe("getProxyUrl", () => {
       if (prev === undefined) delete process.env.DUEL_PROXY_URL;
       else process.env.DUEL_PROXY_URL = prev;
     }
+  });
+});
+
+describe("getEnvForTarget", () => {
+  const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+  const proxy = "https://duelagents.com/v1";
+
+  it("maps claude-code to anthropic vars", () => {
+    const env = getEnvForTarget("claude-code", key, proxy);
+    assert.equal(env.ANTHROPIC_BASE_URL, proxy);
+    assert.equal(env.ANTHROPIC_API_KEY, key);
+    assert.equal(env.DUEL_API_KEY, key);
+  });
+
+  it("maps codex and openai-compat to openai vars", () => {
+    for (const target of ["codex", "openai-compat"] as const) {
+      const env = getEnvForTarget(target, key, proxy);
+      assert.equal(env.OPENAI_BASE_URL, proxy);
+      assert.equal(env.OPENAI_API_KEY, key);
+    }
+  });
+
+  it("maps cursor and openclaw to duel vars", () => {
+    for (const target of ["cursor", "openclaw"] as const) {
+      const env = getEnvForTarget(target, key, proxy);
+      assert.equal(env.DUEL_API_KEY, key);
+      assert.equal(env.DUEL_PROXY_URL, proxy);
+    }
+  });
+
+  it("rejects an invalid key", () => {
+    assert.throws(() => getEnvForTarget("codex", "bad", proxy), /Invalid or missing/);
   });
 });

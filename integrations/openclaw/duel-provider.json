@@ -29,7 +29,6 @@
     }
   },
   "env": {
-    "DUEL_API_KEY": "duel_REPLACE_ME",
     "DUEL_PROXY_URL": "https://duelagents.com/v1"
   }
 }

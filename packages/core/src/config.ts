@@ -92,6 +92,10 @@ export function getEnvForTarget(
   }
 }
 
+/**
+ * Build the OpenClaw provider patch. The API key is referenced as
+ * `${DUEL_API_KEY}` and never written into the `env` block as plaintext.
+ */
 export function buildOpenClawPatch(
   apiKey: string,
   proxyUrl = getProxyUrl(),
@@ -134,6 +138,7 @@ export function buildOpenClawPatch(
   };
 }
 
+/** Recursively merge `patch` into `base`. Arrays and scalars are replaced. */
 export function deepMerge(
   base: Record<string, unknown>,
   patch: Record<string, unknown>,

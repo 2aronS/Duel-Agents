@@ -15,6 +15,25 @@ describe("resolveApiKeyFromEnv", () => {
     if (prev === undefined) delete process.env.DUEL_API_KEY;
     else process.env.DUEL_API_KEY = prev;
   });
+
+  it("falls back to the DUEL_AGENTS_API_KEY alias", () => {
+    const prevKey = process.env.DUEL_API_KEY;
+    const prevAlias = process.env.DUEL_AGENTS_API_KEY;
+    delete process.env.DUEL_API_KEY;
+    process.env.DUEL_AGENTS_API_KEY =
+      "duel_b2c3d4e5_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V4";
+    try {
+      assert.equal(
+        resolveApiKeyFromEnv(),
+        "duel_b2c3d4e5_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V4",
+      );
+    } finally {
+      if (prevKey === undefined) delete process.env.DUEL_API_KEY;
+      else process.env.DUEL_API_KEY = prevKey;
+      if (prevAlias === undefined) delete process.env.DUEL_AGENTS_API_KEY;
+      else process.env.DUEL_AGENTS_API_KEY = prevAlias;
+    }
+  });
 });
 
 describe("validateApiKey in CLI context", () => {

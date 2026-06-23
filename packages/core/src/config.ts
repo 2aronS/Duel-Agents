@@ -50,6 +50,10 @@ export function getProxyUrl(): string {
   return url.replace(/\/$/, "");
 }
 
+/**
+ * Build the environment variables a given install target expects. The key is
+ * validated first, so callers can rely on the returned values being well formed.
+ */
 export function getEnvForTarget(
   target: InstallTarget,
   apiKey: string,
@@ -156,6 +160,10 @@ export function deepMerge(
   return out;
 }
 
+/**
+ * Probe the Duel API to confirm a key is accepted. Tries a few read-only
+ * endpoints and never throws: connection problems are reported as a result.
+ */
 export async function checkConnectivity(
   apiKey: string,
   proxyUrl = getProxyUrl(),

@@ -20,3 +20,11 @@ claude plugin install github:2aronS/Duel-Agents
 
 - A **Duel API key** from https://duelagents.com/dashboard/settings
 - Run `/duel-agents:setup` or `npx @duel-agents/install claude-code`
+
+## Verify
+
+```bash
+npx @duel-agents/install doctor
+```
+
+Then restart Claude Code so it picks up `~/.claude/.env`.

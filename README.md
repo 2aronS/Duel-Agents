@@ -177,6 +177,7 @@ llm = ChatOpenAI(
 | `401` from doctor | Key revoked or subscription inactive. Create a new key on billing/settings. |
 | `Could not reach Duel API` | The proxy at `duelagents.com/v1` must be running. Key format can still be valid; retry later. |
 | OpenClaw won't start | Run `openclaw config validate` after install; restore from `openclaw.json.bak` if needed. |
+| `OPENCLAW_CONFIG_PATH must be inside` | The custom path has to live under `~/.openclaw`. Unset it to use the default. |
 | Cursor still uses OpenAI | Confirm model override URL and that the API key field is your `duel_*` key. |
 | Skill copy failed after npm install | Re-run `npm run build` in the repo, or reinstall `@duel-agents/install`. Skills ship inside the package. |
 

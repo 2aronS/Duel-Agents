@@ -9,6 +9,7 @@ import {
   getProxyUrl,
   installTargetEnv,
   requireApiKey,
+  resolveOpenClawEnvPath,
   validateApiKey,
   type InstallTarget,
 } from "@duel-agents/core";
@@ -119,7 +120,7 @@ export async function installForTarget(
     console.log("  1. Run: openclaw config validate");
     console.log("  2. Restart the OpenClaw gateway if it is running");
     console.log("  3. Default model is duel/duel-auto (existing default preserved on re-install)");
-    console.log("  4. API key stored in ~/.openclaw/.env (not in openclaw.json)");
+    console.log(`  4. API key stored in ${resolveOpenClawEnvPath()} (not in openclaw.json)`);
     await copyOpenClawSkill();
   }
 

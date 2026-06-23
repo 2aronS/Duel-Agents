@@ -215,3 +215,54 @@ describe("getEnvForTarget", () => {
     assert.throws(() => getEnvForTarget("codex", "bad", proxy), /Invalid or missing/);
   });
 });
+
+describe("checkConnectivity", () => {
+  const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+  const proxy = "https://duelagents.com/v1";
+  const realFetch = globalThis.fetch;
+
+  it("short-circuits on an invalid key without a request", async () => {
+    let called = false;
+    globalThis.fetch = (async () => {
+      called = true;
+      return new Response("", { status: 200 });
+    }) as typeof fetch;
+    try {
+      const result = await checkConnectivity("not-a-key", proxy);
+      assert.equal(result.ok, false);
+      assert.equal(result.status, "invalid_key");
+      assert.equal(called, false);
+    } finally {
+      globalThis.fetch = realFetch;
+    }
+  });
+
+  it("reports ok on a 200 response", async () => {
+    globalThis.fetch = (async () =>
+      new Response(JSON.stringify({ data: [] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })) as typeof fetch;
+    try {
+      const result = await checkConnectivity(key, proxy);
+      assert.equal(result.ok, true);
+      assert.equal(result.status, "ok");
+      assert.equal(result.httpStatus, 200);
+    } finally {
+      globalThis.fetch = realFetch;
+    }
+  });
+
+  it("reports unauthorized on a 401 response", async () => {
+    globalThis.fetch = (async () =>
+      new Response("", { status: 401 })) as typeof fetch;
+    try {
+      const result = await checkConnectivity(key, proxy);
+      assert.equal(result.ok, false);
+      assert.equal(result.status, "unauthorized");
+      assert.equal(result.httpStatus, 401);
+    } finally {
+      globalThis.fetch = realFetch;
+    }
+  });
+});

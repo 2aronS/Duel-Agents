@@ -20,7 +20,8 @@ npm test
 | `packages/cli` | `@duel-agents/install` command |
 | `packages/sdk` | `@duel-agents/sdk` TypeScript client |
 | `integrations/` | Claude plugin, Cursor skill, OpenClaw skill |
-| `templates/` | Example configs per tool |
+| `python/` | `langchain-duel` and `llama-index-llms-duel` packages |
+| `templates/` | Example env and config files per tool |
 
 ## Rules
 

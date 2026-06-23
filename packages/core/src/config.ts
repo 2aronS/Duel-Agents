@@ -19,6 +19,7 @@ export interface ConnectivityResult {
   httpStatus?: number;
 }
 
+/** Returns true only for a well formed `duel_<prefix>_<secret>` key. */
 export function validateApiKey(plaintext: string | undefined | null): boolean {
   if (!plaintext || typeof plaintext !== "string") return false;
   return API_KEY_PATTERN.test(plaintext.trim());
@@ -37,6 +38,7 @@ export function requireApiKey(
   return trimmed;
 }
 
+/** Resolve the proxy URL from env, validated and without a trailing slash. */
 export function getProxyUrl(): string {
   const fromEnv =
     process.env.DUEL_PROXY_URL?.trim() ||

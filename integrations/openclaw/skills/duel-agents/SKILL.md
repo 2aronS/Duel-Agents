@@ -23,7 +23,7 @@ Default model after install: `duel/duel-auto`
 
 See `templates/openclaw.duel.json5` in the repo root. Merge into `~/.openclaw/openclaw.json`.
 
-**Important:** Use `${DUEL_API_KEY}` in the provider config and set `DUEL_API_KEY` in the `env` section. Never paste a raw OpenAI or Anthropic provider key for Duel routing.
+**Important:** Use `${DUEL_API_KEY}` in the provider config and store the actual `DUEL_API_KEY` in `~/.openclaw/.env`, not inside `openclaw.json`. Never paste a raw OpenAI or Anthropic provider key for Duel routing.
 
 ## Verify
 

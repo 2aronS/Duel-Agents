@@ -95,4 +95,43 @@ describe("DuelClient", () => {
     assert.equal((capturedBody as { model: string }).model, "duel-auto");
     assert.equal(res.id, "chatcmpl_1");
   });
+
+  it("throws DuelApiError on a 500 response", async () => {
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+    const mockFetch: typeof fetch = async () =>
+      new Response(JSON.stringify({ error: "boom" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+
+    const client = new DuelClient({ apiKey: key, fetch: mockFetch });
+    await assert.rejects(
+      () =>
+        client.chat.completions.create({
+          model: "duel-auto",
+          messages: [{ role: "user", content: "hi" }],
+        }),
+      (err: unknown) => {
+        assert.ok(err instanceof DuelApiError);
+        assert.equal((err as DuelApiError).status, 500);
+        return true;
+      },
+    );
+  });
+
+  it("throws DuelAuthError on a 401 response", async () => {
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+    const mockFetch: typeof fetch = async () =>
+      new Response("", { status: 401 });
+
+    const client = new DuelClient({ apiKey: key, fetch: mockFetch });
+    await assert.rejects(
+      () =>
+        client.chat.completions.create({
+          model: "duel-auto",
+          messages: [{ role: "user", content: "hi" }],
+        }),
+      DuelAuthError,
+    );
+  });
 });

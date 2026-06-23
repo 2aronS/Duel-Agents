@@ -74,6 +74,17 @@ describe("deepMerge", () => {
       "openai/gpt",
     );
   });
+
+  it("replaces arrays instead of concatenating", () => {
+    const out = deepMerge({ models: [1, 2, 3] }, { models: [9] });
+    assert.deepEqual(out.models, [9]);
+  });
+
+  it("overwrites scalars with patch values", () => {
+    const out = deepMerge({ a: 1, b: 2 }, { b: 3 });
+    assert.equal(out.a, 1);
+    assert.equal(out.b, 3);
+  });
 });
 
 describe("mergeEnvFile", () => {

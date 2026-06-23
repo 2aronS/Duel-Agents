@@ -31,8 +31,9 @@
       },
     },
   },
+  // Keep your DUEL_API_KEY in ~/.openclaw/.env, not in this file.
+  // The provider above reads it via the ${DUEL_API_KEY} reference.
   env: {
-    DUEL_API_KEY: "duel_REPLACE_WITH_YOUR_KEY",
     DUEL_PROXY_URL: "https://duelagents.com/v1",
   },
 }

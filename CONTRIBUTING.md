@@ -5,7 +5,8 @@ Thank you for helping improve the Duel Agents integration repo.
 ## Development setup
 
 ```bash
-cd duel-agents
+git clone https://github.com/2aronS/Duel-Agents.git
+cd Duel-Agents
 npm install
 npm run build
 npm test

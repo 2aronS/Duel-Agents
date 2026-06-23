@@ -98,6 +98,7 @@ export class DuelClient {
     create: (params: MessagesCreateParams) => Promise<MessagesResponse>;
   };
 
+  /** OpenAI-compatible chat completion. Streaming is not supported yet. */
   async createChatCompletion(
     params: ChatCompletionCreateParams,
   ): Promise<ChatCompletion> {
@@ -111,6 +112,7 @@ export class DuelClient {
     return this.request<ChatCompletion>("/chat/completions", params, "openai");
   }
 
+  /** Anthropic-compatible message create. Sends `x-api-key` and version headers. */
   async createMessage(params: MessagesCreateParams): Promise<MessagesResponse> {
     return this.request<MessagesResponse>("/messages", params, "anthropic");
   }

@@ -12,6 +12,13 @@ npm run build
 npm test
 ```
 
+Run a single package while iterating:
+
+```bash
+npm test -w @duel-agents/core
+npm run typecheck -w @duel-agents/sdk
+```
+
 ## Project layout
 
 | Path | Purpose |

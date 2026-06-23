@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { DuelClient } from "./client.js";
-import { DuelAuthError } from "./errors.js";
+import { DuelApiError, DuelAuthError } from "./errors.js";
 
 describe("DuelClient", () => {
   it("requires apiKey", () => {
@@ -63,5 +63,36 @@ describe("DuelClient", () => {
     assert.equal(capturedHeaders?.["x-api-key"], key);
     assert.equal(capturedHeaders?.["anthropic-version"], "2023-06-01");
     assert.match(capturedHeaders?.Authorization ?? "", /Bearer duel_/);
+  });
+
+  it("posts chat completions to /chat/completions", async () => {
+    const key = "duel_a1b2c3d4_f8gA0hN1k2L3m4N5o6P7q8R9s0T1u2V3";
+    let capturedUrl = "";
+    let capturedBody: unknown;
+
+    const mockFetch: typeof fetch = async (url, init) => {
+      capturedUrl = String(url);
+      capturedBody = init?.body ? JSON.parse(String(init.body)) : null;
+      return new Response(
+        JSON.stringify({
+          id: "chatcmpl_1",
+          object: "chat.completion",
+          created: 0,
+          model: "duel-auto",
+          choices: [],
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
+    };
+
+    const client = new DuelClient({ apiKey: key, fetch: mockFetch });
+    const res = await client.chat.completions.create({
+      model: "duel-auto",
+      messages: [{ role: "user", content: "hi" }],
+    });
+
+    assert.match(capturedUrl, /\/chat\/completions$/);
+    assert.equal((capturedBody as { model: string }).model, "duel-auto");
+    assert.equal(res.id, "chatcmpl_1");
   });
 });

@@ -2,6 +2,9 @@
 
 <img width="1344" height="576" alt="banner" src="https://github.com/user-attachments/assets/24e6abbe-1c7b-41cb-9d1c-a971c9a93534" />
 
+[![CI](https://github.com/2aronS/Duel-Agents/actions/workflows/ci.yml/badge.svg)](https://github.com/2aronS/Duel-Agents/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **Use, extend, and ship with Duel Agents**: the IDE-native routing layer that runs prompts against multiple models and picks the cheapest answer that still wins.
 
 This repo is the official integration package for [duelagents.com](https://duelagents.com).

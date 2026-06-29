@@ -19,6 +19,10 @@ This repo is the official integration package for [duelagents.com](https://duela
  </picture>
 </a>
 
+## $DUEL Token
+
+**$DUEL** is the tokenized equity of Duel Agents, live on Solana via [pump.fun](https://pump.fun) — official contract address (CA): 5vsb7beRZSYpewaWt2uNakxVARq7DnDRGbZ3YDGqpump
+
 ## Requirements
 
 Every tool in this repo routes LLM traffic through **`https://duelagents.com/v1`** with a **Duel API key** (`duel_<prefix>_<secret>`).
